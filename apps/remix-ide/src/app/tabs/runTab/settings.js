@@ -1,4 +1,4 @@
-import { Settings } from '@remix-ui/debugger-ui' // eslint-disable-line
+import { Settings } from '@remix-ui/run-tab' // eslint-disable-line
 import React from 'react' // eslint-disable-line
 import ReactDOM from 'react-dom'
 

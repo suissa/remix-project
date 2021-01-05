@@ -91,6 +91,8 @@
       "tags": []
     },
     "debugger": {
+    },
+    "remix-ui-run-tab": {
       "tags": []
     }
   }
