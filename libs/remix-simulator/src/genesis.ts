@@ -1,7 +1,7 @@
 import EthJSBlock from 'ethereumjs-block'
 import { BN } from 'ethereumjs-util'
 
-export function generateBlock (executionContext) {
+export function generateBlock (vmContext) {
   const block: EthJSBlock = new EthJSBlock({
     header: {
       timestamp: (new Date().getTime() / 1000 | 0),
@@ -14,8 +14,8 @@ export function generateBlock (executionContext) {
     uncleHeaders: []
   })
 
-  executionContext.vm().runBlock({ block: block, generate: true, skipBlockValidation: true, skipBalance: false }).then(() => {
-    executionContext.addBlock(block)
+  vmContext.vm().runBlock({ block: block, generate: true, skipBlockValidation: true, skipBalance: false }).then(() => {
+    vmContext.addBlock(block)
   })
 }
 

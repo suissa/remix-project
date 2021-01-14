@@ -7,16 +7,15 @@ export class Accounts {
   web3
   accounts: Record<string, unknown>
   accountsKeys: Record<string, unknown>
-  executionContext
+  vmContext
 
-  constructor (executionContext) {
+  constructor (vmContext) {
     this.web3 = new Web3()
-    this.executionContext = executionContext
+    this.vmContext = vmContext
     // TODO: make it random and/or use remix-libs
 
     this.accounts = {}
     this.accountsKeys = {}
-    this.executionContext.init({ get: () => { return true } })
   }
 
   async resetAccounts (): Promise<void> {
@@ -48,7 +47,7 @@ export class Accounts {
       this.accounts[toChecksumAddress('0x' + address.toString('hex'))] = { privateKey, nonce: 0 }
       this.accountsKeys[toChecksumAddress('0x' + address.toString('hex'))] = '0x' + privateKey.toString('hex')
 
-      const stateManager = this.executionContext.vm().stateManager
+      const stateManager = this.vmContext.vm().stateManager
       stateManager.getAccount(address, (error, account) => {
         if (error) {
           console.log(error)
@@ -86,7 +85,7 @@ export class Accounts {
     let address = payload.params[0]
     address = stripHexPrefix(address)
 
-    this.executionContext.vm().stateManager.getAccount(Buffer.from(address, 'hex'), (err, account) => {
+    this.vmContext.vm().stateManager.getAccount(Buffer.from(address, 'hex'), (err, account) => {
       if (err) {
         return cb(err)
       }

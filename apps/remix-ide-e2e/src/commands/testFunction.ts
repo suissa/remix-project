@@ -9,41 +9,53 @@ class TestFunction extends EventEmitter {
     const logs = {}
     const setLog = (index: number, value: string) => { logs[Object.keys(logs)[index]] = typeof value === 'string' ? value.trim() : value }
 
-    browser
-    .waitForElementVisible(`[data-id="block_tx${txHash}"]`)
-    .click(`[data-id="block_tx${txHash}"]`)
-    .waitForElementVisible(`*[data-id="txLoggerTable${txHash}"]`)
+    browser.pause(1000)
+    .perform((done) => {
+      if (txHash === 'last') {
+        browser.getLastTransactionHash((hash) => {
+          txHash = hash
+          done()
+        })
+      } else {
+        done()
+      }
+    })
+    .perform((done) => {
+      browser.waitForElementVisible(`[data-id="block_tx${txHash}"]`)
+      .click(`[data-id="block_tx${txHash}"]`)
+      .waitForElementVisible(`*[data-id="txLoggerTable${txHash}"]`)
 
-    // fetch and format transaction logs as key => pair object
-    .elements('css selector', `*[data-shared="key_${txHash}"]`, (res) => {
-      Array.isArray(res.value) && res.value.forEach(function (jsonWebElement) {
-        const jsonWebElementId: string = jsonWebElement.ELEMENT || jsonWebElement[Object.keys(jsonWebElement)[0]]
+      // fetch and format transaction logs as key => pair object
+      .elements('css selector', `*[data-shared="key_${txHash}"]`, (res) => {
+        Array.isArray(res.value) && res.value.forEach(function (jsonWebElement) {
+          const jsonWebElementId: string = jsonWebElement.ELEMENT || jsonWebElement[Object.keys(jsonWebElement)[0]]
 
-        browser.elementIdText(jsonWebElementId, (jsonElement) => {
-          const key = typeof jsonElement.value === 'string' ? jsonElement.value.trim() : null
+          browser.elementIdText(jsonWebElementId, (jsonElement) => {
+            const key = typeof jsonElement.value === 'string' ? jsonElement.value.trim() : null
 
-          logs[key] = null
+            logs[key] = null
+          })
         })
       })
-    })
-    .elements('css selector', `*[data-shared="pair_${txHash}"]`, (res) => {
-      Array.isArray(res.value) && res.value.forEach(function (jsonWebElement, index) {
-        const jsonWebElementId = jsonWebElement.ELEMENT || jsonWebElement[Object.keys(jsonWebElement)[0]]
+      .elements('css selector', `*[data-shared="pair_${txHash}"]`, (res) => {
+        Array.isArray(res.value) && res.value.forEach(function (jsonWebElement, index) {
+          const jsonWebElementId = jsonWebElement.ELEMENT || jsonWebElement[Object.keys(jsonWebElement)[0]]
 
-        browser.elementIdText(jsonWebElementId, (jsonElement) => {
-          let value = jsonElement.value
+          browser.elementIdText(jsonWebElementId, (jsonElement) => {
+            let value = jsonElement.value
 
-          try {
-            value = JSON.parse(<string>jsonElement.value)
-            setLog(index, <string>value)
-          } catch (e) {
-            setLog(index, <string>value)
-          }
+            try {
+              value = JSON.parse(<string>jsonElement.value)
+              setLog(index, <string>value)
+            } catch (e) {
+              setLog(index, <string>value)
+            }
+          })
         })
+        done()
       })
     })
-
-    browser.perform(() => {
+    .perform(() => {
       Object.keys(expectedValue).forEach(key => {
         const equal: boolean = deepequal(logs[key], expectedValue[key])
 

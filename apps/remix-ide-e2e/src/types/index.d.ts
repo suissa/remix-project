@@ -52,7 +52,8 @@ declare module "nightwatch" {
         journalLastChild(val: string): NightwatchBrowser,
         checkTerminalFilter(filter: string, test: string): NightwatchBrowser,
         noWorkerErrorFor(version: string): NightwatchBrowser,
-        validateValueInput(selector: string, valueTosSet: string, expectedValue: string): NightwatchBrowser
+        validateValueInput(selector: string, valueTosSet: string, expectedValue: string): NightwatchBrowser,
+        getLastTransactionHash(cb: (hash: string) => void): NightwatchBrowser
     }
 
     export interface NightwatchBrowser {

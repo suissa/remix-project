@@ -82,10 +82,9 @@ module.exports = {
         .clickInstance(1)
         .pause(1000)
         .clickFunction('set2 - transact (not payable)', {types: 'uint256 _po', values: '10'})
-        .testFunction('0xa88bf726e706480f61f04a066452929030c0a0216cc6923106f863963339bdb7',
+        .testFunction('last',
       {
         status: 'true Transaction mined and execution succeed',
-        'transaction hash': '0xa88bf726e706480f61f04a066452929030c0a0216cc6923106f863963339bdb7',
         'decoded input': {"uint256 _po":{"type":"BigNumber","hex":"0x0a"}}
       })
         .end()
