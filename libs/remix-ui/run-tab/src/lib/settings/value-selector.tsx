@@ -3,12 +3,13 @@ import React, { useState, useEffect } from 'react'
 import './value-selector.css'
 
 export const ValueSelector = () => {
+  const [gasValue, setGasValue] = useState(0);
     return (
-      <div className="crow">
-        <label className="settingsLabel">Value</label>
-        <div className="gasValueContainer">
-          <input type="text" className="form-control gasNval col2" id="value" value="0" title="Enter the value and choose the unit" />
-          <select name="unit" className="form-control p-1 gasNvalUnit col2_2 custom-select" id="unit">
+      <div className="remixui_crow">
+        <label className="remixui_settingsLabel">Value</label>
+        <div className="remixui_gasValueContainer">
+          <input type="text" className="form-control remixui_gasNval remixui_col2" id="value" value={gasValue} onChange={(e) => setGasValue(e.target.value)} title="Enter the value and choose the unit" />
+          <select name="unit" className="form-control p-1 remixui_gasNvalUnit remixui_col2_2 custom-select" id="unit">
             <option data-unit="wei">wei</option>
             <option data-unit="gwei">gwei</option>
             <option data-unit="finney">finney</option>

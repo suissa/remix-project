@@ -1,31 +1,31 @@
-.crow {
+.remixui_crow {
   display: block;
   margin-top: 8px;
 }
-.settingsLabel {
+.remixui_settingsLabel {
   font-size: 11px;
   margin-bottom: 4px;
   text-transform: uppercase;
 }
-.gasNval {
+.remixui_gasNval {
   width: 55%;
   font-size: 0.8rem;
 }
-.col2 {
+.remixui_col2 {
   border-radius: 3px;
 }
-.col2_1 {
+.remixui_col2_1 {
   width: 164px;
   min-width: 164px;
 }
-.col2_2 {
+.remixui_col2_2 {
 }
-.gasNvalUnit {
+.remixui_gasNvalUnit {
   width: 41%;
   margin-left: 10px;
   font-size: 0.8rem;
 }
-.gasValueContainer {
+.remixui_gasValueContainer {
   flex-direction: row;
   display: flex;
 }
