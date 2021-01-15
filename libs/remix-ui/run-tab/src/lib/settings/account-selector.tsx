@@ -11,7 +11,7 @@ const plusButtonStyle = (providerName, personalModeChecked) => {
 
     switch (providerName) {
         case 'injected':
-            css.classList = "disableMouseEvents"
+            css.classList = "remixui_disableMouseEvents"
             css.title = "Unfortunately it's not possible to create an account using injected web3. Please create the account directly from your provider (i.e metamask or other of the same type)."
 
             break
@@ -22,7 +22,7 @@ const plusButtonStyle = (providerName, personalModeChecked) => {
             break
         case 'web3':
             if (!personalModeChecked) {
-                css.classList = "disableMouseEvents"
+                css.classList = "remixui_disableMouseEvents"
                 css.title = "Creating an account is possible only in Personal mode. Please go to Settings to enable it."
             } else {
                 css.classList = ""
@@ -31,7 +31,7 @@ const plusButtonStyle = (providerName, personalModeChecked) => {
 
             break
         default: {
-            css.classList = "disableMouseEvents"
+            css.classList = "remixui_disableMouseEvents"
             css.title = `Unfortunately it's not possible to create an account using an external wallet (${providerName}).`
         }
     }
@@ -48,20 +48,20 @@ export const AccountSelector = (props: any) => {
     }
 
     return (
-      <div className="crow">
-        <label className="settingsLabel">
+      <div className="remixui_crow">
+        <label className="remixui_settingsLabel">
           Account
           <span id="remixRunPlusWraper" title={plusButtonCss.title}>
-            <i id="remixRunPlus" className={`fas fa-plus-circle icon ${plusButtonCss.classList}`} aria-hidden="true" onClick={() => { createAccount() }}></i>
+            <i id="remixRunPlus" className={`fas fa-plus-circle remixui_icon {plusButtonCss.classList}`} aria-hidden="true" onClick={() => { createAccount() }}></i>
           </span>
         </label>
-        <div className="account">
-          <select data-id="runTabSelectAccount" name="txorigin" className="form-control select custom-select pr-4" id="txorigin">
+        <div className="remixui_account">
+          <select data-id="runTabSelectAccount" name="txorigin" className="form-control remixui_select custom-select pr-4" id="txorigin">
             {accounts.map((account, index) => (
                 <option key={account.address} value={account.address}>{account.name}</option>
             ))}
           </select>
-          <i id="remixRunSignMsg" data-id="settingsRemixRunSignMsg" className="mx-1 fas fa-edit icon" aria-hidden="true" onClick={() => {signMessage() }} title="Sign a message using this account key"></i>
+          <i id="remixRunSignMsg" data-id="settingsRemixRunSignMsg" className="mx-1 fas fa-edit remixui_icon" aria-hidden="true" onClick={() => {signMessage() }} title="Sign a message using this account key"></i>
         </div>
       </div>
     )

@@ -12,23 +12,23 @@ export const EnvironmentSelector = (props: any) => {
     }
 
     return (
-        <div className="crow">
-            <label id="selectExEnv" className="settingsLabel">
+        <div className="remixui_crow">
+            <label id="selectExEnv" className="remixui_settingsLabel">
                 Environment
             </label>
-            <div className="environment">
-                <select id="selectExEnvOptions" value={selectedProvider} data-id="settingsSelectEnvOptions" onChange={(e) => { onSettingsChange(e) }}  className="form-control select custom-select">
+            <div className="remixui_environment">
+                <select id="selectExEnvOptions" value={selectedProvider} data-id="settingsSelectEnvOptions" onChange={(e) => { onSettingsChange(e) }}  className="form-control remixui_select custom-select">
                 {props.options.map((option, index) => (
-                    <option id={`${option.value}-mode`} title={option.title} value={option.value}>{option.name}</option>
+                    <option id={`${option.value}-mode`} key={index} title={option.title} value={option.value}>{option.name}</option>
                 ))}
                 </select>
-                <a href="https://remix-ide.readthedocs.io/en/latest/run.html#run-setup" target="_blank"><i className="infoDeployAction ml-2 fas fa-info" title="check out docs to setup Environment"></i></a>
+                <a href="https://remix-ide.readthedocs.io/en/latest/run.html#run-setup" target="_blank"><i className="remixui_infoDeployAction ml-2 fas fa-info" title="check out docs to setup Environment"></i></a>
             </div>
-            <div className="crow">
-                <div className="settingsLabel">
+            <div className="remixui_crow">
+                <div className="remixui_settingsLabel">
                 </div>
-                <div className="environment" data-id="settingsNetworkEnv">
-                <span className="network badge badge-secondary">{networkMessage}</span>
+                <div className="remixui_environment" data-id="settingsNetworkEnv">
+                <span className="remixui_network badge badge-secondary">{networkMessage}</span>
                 </div>
             </div>
         </div>
