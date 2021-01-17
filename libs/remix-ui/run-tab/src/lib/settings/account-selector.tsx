@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { CopyToClipboard } from '@remix-ui/clipboard'
 /* eslint-disable-next-line */
 import './account-selector.css'
 
@@ -41,6 +42,9 @@ const plusButtonStyle = (providerName, personalModeChecked) => {
 export const AccountSelector = (props: any) => {
     const {newAccount, signMessage, copyToClipboard, selectedProvider, personalModeChecked, accounts} = props
     const plusButtonCss = plusButtonStyle(selectedProvider, personalModeChecked)
+    const [selectedAccount, setSelectedAccount] = useState(null)
+
+    useEffect(() => { setSelectedAccount(selectedAccount || accounts[0].address) }, [accounts])
 
     const createAccount = () => {
         if (selectedProvider === "injected") return
@@ -56,17 +60,16 @@ export const AccountSelector = (props: any) => {
           </span>
         </label>
         <div className="remixui_account">
-          <select data-id="runTabSelectAccount" name="txorigin" className="form-control remixui_select custom-select pr-4" id="txorigin">
+          <select data-id="runTabSelectAccount" name="txorigin" className="form-control remixui_select custom-select pr-4" id="txorigin" onChange={(e)=> setSelectedAccount(e.target.value)}>
             {accounts.map((account, index) => (
                 <option key={account.address} value={account.address}>{account.name}</option>
             ))}
           </select>
+          <CopyToClipboard content={selectedAccount} data-id="dropdownPanelCopyToClipboard" />
           <i id="remixRunSignMsg" data-id="settingsRemixRunSignMsg" className="mx-1 fas fa-edit remixui_icon" aria-hidden="true" onClick={() => {signMessage() }} title="Sign a message using this account key"></i>
         </div>
       </div>
     )
 }
-
-{/* <div style={clipboardstyles}>{copyToClipboard(() => (document.querySelector('#runTabView #txorigin') as HTMLInputElement).value)}</div> */}
 
 export default AccountSelector
