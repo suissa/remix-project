@@ -78,8 +78,17 @@ module.exports = {
           .getEditorValue((content) => {
             browser.assert.ok(content.indexOf(`contract ERC20 is Context, IERC20`) != -1, 
           'current displayed content should be from the ERC20 source code')
-          })     
-          .end()          
+          })
+  },
+
+  'Test NPM Import (with unpkg.com)': function (browser: NightwatchBrowser) {
+    browser
+          .clickLaunchIcon('fileExplorers')
+          .click('li[data-id="treeViewLitreeViewItembrowser/README.txt"')
+          .addFile('Untitled9.sol', sources[8]['browser/Untitled9.sol'])
+          .clickLaunchIcon('fileExplorers')
+          .verifyContracts(['test13', 'ERC20', 'SafeMath'], {wait: 10000})
+          .end()       
   },
   tearDown: sauce
 }
@@ -109,5 +118,8 @@ const sources = [
   },
   {
     'browser/Untitled8.sol': {content: 'import "https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/master/contracts/token/ERC20/ERC20.sol"; contract test12 {}'}
+  },
+  {
+    'browser/Untitled9.sol': {content: 'import "@openzeppelin/contracts/token/ERC20/ERC20.sol"; contract test13 {}'}
   }
 ]

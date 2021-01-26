@@ -114,6 +114,7 @@ module.exports = class CompilerImports extends Plugin {
         if (error) return cb(error)
         if (this.fileManager) {
           const browser = this.fileManager.fileProviderOf('browser/')
+          type = type.startsWith('http') ? '' : type // no need to keep http/https as root folder
           const path = targetPath || type + '/' + cleanUrl
           if (browser) browser.addExternal(path, content, url)
         }
@@ -182,13 +183,15 @@ module.exports = class CompilerImports extends Plugin {
               }
               resolve(result)
             })
-          } else {
-            // try to resolve external content
-            this.importExternal(url, targetPath, (error, content) => {
-              if (error) return reject(error)
-              resolve(content)
-            })
           }
+
+          return async.tryEach([
+            (cb) => { this.importExternal(url, targetPath, cb) },
+            (cb) => { this.importExternal(`https://unpkg.com/${url}`, targetPath, cb) }],
+          (error, result) => {
+            if (error) return reject(error)
+            resolve(result)
+          })
         })
       }
     })
