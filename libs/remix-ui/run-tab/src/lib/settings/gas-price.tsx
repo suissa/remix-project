@@ -7,7 +7,7 @@ export const GasPrice = () => {
   return (
     <div className="remixui_crow">
       <label className="remixui_settingsLabel">Gas limit</label>
-      <input type="number" className="form-control remixui_gasNval remixui_col2" id="gasLimit" value={gasPrice} onInput={(e) => setGasPrice((e.target as HTMLTextAreaElement).value)} />
+      <input type="number" className="form-control remixui_gasNval remixui_col2" id="gasLimit" value={gasPrice} onChange={() => {}} onInput={(e) => setGasPrice((e.target as HTMLTextAreaElement).value)} />
     </div>
   )
 }
