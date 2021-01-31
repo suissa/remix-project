@@ -4,7 +4,7 @@ import './environment-selector.css'
 
 export const EnvironmentSelector = (props: any) => {
     const [networkMessage, setNetworkMessage] = useState("");
-    const {updateNetwork, selectedProvider} = props
+    const { updateNetwork, selectedProvider } = props
 
     const onSettingsChange = (e) => {
         const provider = e.target.value
@@ -17,10 +17,10 @@ export const EnvironmentSelector = (props: any) => {
                 Environment
             </label>
             <div className="remixui_environment">
-                <select id="selectExEnvOptions" value={selectedProvider} data-id="settingsSelectEnvOptions" onChange={(e) => { onSettingsChange(e) }}  className="form-control remixui_select custom-select">
-                {props.options.map((option, index) => (
-                    <option id={`${option.value}-mode`} key={index} title={option.title} value={option.value}>{option.name}</option>
-                ))}
+                <select id="selectExEnvOptions" value={selectedProvider} data-id="settingsSelectEnvOptions" onChange={(e) => { onSettingsChange(e) }} className="form-control remixui_select custom-select">
+                    {props.options.map((option, index) => (
+                        <option id={`${option.value}-mode`} key={index} title={option.title} value={option.value}>{option.name}</option>
+                    ))}
                 </select>
                 <a href="https://remix-ide.readthedocs.io/en/latest/run.html#run-setup" target="_blank"><i className="remixui_infoDeployAction ml-2 fas fa-info" title="check out docs to setup Environment"></i></a>
             </div>
@@ -28,7 +28,7 @@ export const EnvironmentSelector = (props: any) => {
                 <div className="remixui_settingsLabel">
                 </div>
                 <div className="remixui_environment" data-id="settingsNetworkEnv">
-                <span className="remixui_network badge badge-secondary">{networkMessage}</span>
+                    <span className="remixui_network badge badge-secondary">{networkMessage}</span>
                 </div>
             </div>
         </div>
